@@ -49,13 +49,13 @@ def bfs_2(adj_list, start):
 
 
 def generator_smezh(razm):
-    matr_sm = np.array([abs(rd.randint(-1000, 1000))%2 for _ in range(razm) for _ in range(razm)]).reshape(razm, razm)
+    matr_sm = np.matrix(np.array([abs(rd.randint(-1000, 1000))%2 for _ in range(razm) for _ in range(razm)]).reshape(razm, razm))
 
     for i in range(razm):
         matr_sm[i, i] = 0
-        for j in range(i):
+        for j in range(razm):
             if i<=j:
-                matr_sm[i, j] = matr_sm[j, i] if True else 0
+                matr_sm[i,j] = matr_sm[j, i]
 
     print(matr_sm)
     return matr_sm.tolist()
@@ -71,8 +71,6 @@ def matrix_to_adj_list(matrix):
 
 
 def main():
-
-
     G = generator_smezh(int(input("Введите количество вершин в графе: ")))
     print(f"для матричного представления:\t{bfs_1(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
 
