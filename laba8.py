@@ -3,6 +3,7 @@ import random as rd
 
 from collections import deque
 
+from lab3 import Queue
 
 def bfs_1(matrix, start):
     n = len(matrix)          
@@ -48,6 +49,31 @@ def bfs_2(adj_list, start):
 
 
 
+def bfs_3(matrix, start):
+    n = len(matrix)          
+    visited = set()
+    queue = Queue()   
+    result = []             
+    
+    queue.append(start)
+    visited.add(start)
+    
+    while not queue.is_empty():
+
+        vertex = queue.popleft()
+        result.append(vertex)
+        
+        # Проверяем всех соседей текущей вершины
+        for neighbor in range(n):
+            # Если есть ребро и вершина не посещена
+            if matrix[vertex][neighbor] == 1 and neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    
+    return result
+
+
+
 def generator_smezh(razm):
     matr_sm = np.matrix(np.array([abs(rd.randint(-1000, 1000))%2 for _ in range(razm) for _ in range(razm)]).reshape(razm, razm))
 
@@ -74,6 +100,7 @@ def main():
     G = generator_smezh(int(input("Введите количество вершин в графе: ")))
     print(f"для матричного представления:\t{bfs_1(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
 
+    print(f"для матричного представления:\t{bfs_3(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
 
     G = matrix_to_adj_list(G)
     print(f"для спискового представления:\t{bfs_2(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
