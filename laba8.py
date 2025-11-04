@@ -3,7 +3,11 @@ import random as rd
 
 from collections import deque
 
+
+
 from lab3 import Queue
+
+
 
 def bfs_1(matrix, start):
     n = len(matrix)          
@@ -43,7 +47,7 @@ def bfs_2(adj_list, start):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
-                
+
     return result
 
 
