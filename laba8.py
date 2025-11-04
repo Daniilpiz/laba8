@@ -8,6 +8,11 @@ from collections import deque
 from lab3 import Queue
 
 
+def beautiful_print(result):
+    for i in range(len(result)):
+        print(f"Посетили узеле: {result[i]}")
+    
+
 
 def bfs_1(matrix, start):
     n = len(matrix)          
@@ -28,11 +33,11 @@ def bfs_1(matrix, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
     
-    return result
+    beautiful_print(result)
 
 
 def bfs_2(adj_list, start):
-    n = len(adj_list)
+    # n = len(adj_list)
     visited = set()
     queue = deque([start])
     result = []
@@ -48,7 +53,7 @@ def bfs_2(adj_list, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
 
-    return result
+    beautiful_print(result)
 
 
 
@@ -73,7 +78,7 @@ def bfs_3(matrix, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
     
-    return result
+    beautiful_print(result)
 
 
 
@@ -101,12 +106,12 @@ def matrix_to_adj_list(matrix):
 
 def main():
     G = generator_smezh(int(input("Введите количество вершин в графе: ")))
-    print(f"для матричного представления:\t{bfs_1(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
+    bfs_1(G, int(input("Введите вершину с которой хотите начать:\t")))
 
-    print(f"для матричного представления:\t{bfs_3(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
+    bfs_3(G, int(input("Введите вершину с которой хотите начать:\t")))
 
     G = matrix_to_adj_list(G)
-    print(f"для спискового представления:\t{bfs_2(G, int(input("Введите вершину с которой хотите начать:\t")))}\n")
+    bfs_2(G, int(input("Введите вершину с которой хотите начать:\t")))
 
 
 if __name__ == "__main__":
