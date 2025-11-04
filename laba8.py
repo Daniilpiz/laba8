@@ -39,12 +39,11 @@ def bfs_2(adj_list, start):
         vertex = queue.popleft()
         result.append(vertex)
 
-        for neighbor in range(n):
+        for neighbor in adj_list[vertex]:
             if neighbor not in visited:
-
                 visited.add(neighbor)
                 queue.append(neighbor)
-
+                
     return result
 
 
