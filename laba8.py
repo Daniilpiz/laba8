@@ -1,5 +1,6 @@
 import numpy as np
 import random as rd
+import time
 
 from collections import deque
 
@@ -96,7 +97,6 @@ def generator_smezh(razm):
 
 
 def matrix_to_adj_list(matrix):
-    """Функциональный стиль преобразования"""
     return [
         [j for j in range(len(matrix)) if matrix[i][j] != 0]
         for i in range(len(matrix))
@@ -105,10 +105,26 @@ def matrix_to_adj_list(matrix):
 
 
 def main():
+    
     G = generator_smezh(int(input("Введите количество вершин в графе: ")))
-    bfs_1(G, int(input("Введите вершину с которой хотите начать:\t")))
 
-    bfs_3(G, int(input("Введите вершину с которой хотите начать:\t")))
+    
+    nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
+
+    start = time.time()
+    bfs_1(G, nach_1)
+    end = time.time()
+    
+    print(f"Время работы на основе библиотечной очереди: {end - start}")
+
+    
+    nach_2 = int(input("Введите вершину с которой хотите начать:\t"))
+
+    start = time.time()
+    bfs_3(G, nach_2)
+    end = time.time()
+
+    print(f"Время работы на основе самописной очереди: {end - start}")
 
     G = matrix_to_adj_list(G)
     bfs_2(G, int(input("Введите вершину с которой хотите начать:\t")))

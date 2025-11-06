@@ -229,6 +229,7 @@ class Stack:
             current = current.next
         
         raise ValueError(f"Элемент с данными '{nazv}' не найден")
+    
 def vvod(start, end):
     while True:
         try:
