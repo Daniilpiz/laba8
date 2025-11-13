@@ -4,8 +4,6 @@ import time
 
 from collections import deque
 
-
-
 from lab3 import Queue
 
 
@@ -40,12 +38,13 @@ def bfs_1(matrix, start):
 def bfs_2(adj_list, start):
     # n = len(adj_list)
     visited = set()
-    queue = deque([start])
+    queue = Queue()
     result = []
 
+    queue.append(start)
     visited.add(start)
 
-    while(queue):
+    while not queue.is_empty():
         vertex = queue.popleft()
         result.append(vertex)
 
@@ -82,6 +81,27 @@ def bfs_3(matrix, start):
     beautiful_print(result)
 
 
+def bfs_4(adj_list, start):
+    # n = len(adj_list)
+    visited = set()
+    queue = deque([start])
+    result = []
+
+    queue.append(start)
+    visited.add(start)
+
+    while queue:
+        vertex = queue.popleft()
+        result.append(vertex)
+
+        for neighbor in adj_list[vertex]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    beautiful_print(result)
+
+
 
 def generator_smezh(razm):
     matr_sm = np.matrix(np.array([abs(rd.randint(-1000, 1000))%2 for _ in range(razm) for _ in range(razm)]).reshape(razm, razm))
@@ -111,23 +131,36 @@ def main():
     
     nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
 
-    start = time.time()
+    start_1 = time.time()
     bfs_1(G, nach_1)
-    end = time.time()
+    end_1 = time.time()
     
-    print(f"Время работы на основе библиотечной очереди: {end - start}")
+    print(f"Время работы на основе библиотечной очереди: {end_1 - start_1}")
 
     
     nach_2 = int(input("Введите вершину с которой хотите начать:\t"))
 
-    start = time.time()
+    start_2 = time.time()
     bfs_3(G, nach_2)
+    end_2 = time.time()
+
+    print(f"Время работы на основе самописной очереди: {end_2 - start_2}")
+    diff = ((end_2 - start_2) - (end_1 - start_1))
+    print(f"разница: {diff}")
+    G = matrix_to_adj_list(G)
+    nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
+
+    start = time.time()
+    bfs_2(G, nach_1)
     end = time.time()
 
-    print(f"Время работы на основе самописной очереди: {end - start}")
-
-    G = matrix_to_adj_list(G)
-    bfs_2(G, int(input("Введите вершину с которой хотите начать:\t")))
+    print(f"Время работы на основе самописной очереди для списков смежности: {end - start}")
+    
+    nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
+    start = time.time()
+    bfs_4(G, nach_1)
+    end = time.time()
+    print(f"Время работы на основе библиотечной очереди для списков смежности: {end - start}")
 
 
 if __name__ == "__main__":
