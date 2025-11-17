@@ -32,7 +32,7 @@ def bfs_1(matrix, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
     
-    beautiful_print(result)
+    # beautiful_print(result)
 
 
 def bfs_2(adj_list, start):
@@ -53,7 +53,7 @@ def bfs_2(adj_list, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
 
-    beautiful_print(result)
+    # beautiful_print(result)
 
 
 
@@ -78,7 +78,7 @@ def bfs_3(matrix, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
     
-    beautiful_print(result)
+    # beautiful_print(result)
 
 
 def bfs_4(adj_list, start):
@@ -99,7 +99,7 @@ def bfs_4(adj_list, start):
                 visited.add(neighbor)
                 queue.append(neighbor)
 
-    beautiful_print(result)
+    # beautiful_print(result)
 
 
 
@@ -112,7 +112,7 @@ def generator_smezh(razm):
             if i<=j:
                 matr_sm[i,j] = matr_sm[j, i]
 
-    print(matr_sm)
+    # print(matr_sm)
     return matr_sm.tolist()
 
 
@@ -124,12 +124,12 @@ def matrix_to_adj_list(matrix):
 
 
 
-def main():
+def main(razm):
     
-    G = generator_smezh(int(input("Введите количество вершин в графе: ")))
+    G = generator_smezh(razm)
 
     
-    nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
+    nach_1 = nach_2 =  0
 
     start_1 = time.time()
     bfs_1(G, nach_1)
@@ -138,7 +138,6 @@ def main():
     print(f"Время работы на основе библиотечной очереди: {end_1 - start_1}")
 
     
-    nach_2 = int(input("Введите вершину с которой хотите начать:\t"))
 
     start_2 = time.time()
     bfs_3(G, nach_2)
@@ -148,7 +147,7 @@ def main():
     diff = ((end_2 - start_2) - (end_1 - start_1))
     print(f"разница: {diff}")
     G = matrix_to_adj_list(G)
-    nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
+    # nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
 
     start = time.time()
     bfs_2(G, nach_1)
@@ -156,12 +155,17 @@ def main():
 
     print(f"Время работы на основе самописной очереди для списков смежности: {end - start}")
     
-    nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
+    # nach_1 = int(input("Введите вершину с которой хотите начать:\t"))
     start = time.time()
     bfs_4(G, nach_1)
     end = time.time()
     print(f"Время работы на основе библиотечной очереди для списков смежности: {end - start}")
 
+def test():
+    pass
 
 if __name__ == "__main__":
-    main()
+    lst = [10, 100, 200, 300, 400, 500, 1000, 10000]
+    for i in lst:
+        print(f"Кол-во верши графа {i}:")
+        main(i)
